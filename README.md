@@ -6,6 +6,8 @@ Xiaomi Mi TV Stick için hafif, root gerektirmeyen, özel bir Android TV ana ekr
 
 > *A lightweight, root-free custom Android TV launcher for the Xiaomi Mi TV Stick. The UI is Turkish-only for now.*
 
+![Stick Home ana ekranı](docs/screenshots/home.png)
+
 ## Claude Code ile kurulum (önerilen)
 
 Komutlarla uğraşmak istemiyorsan kurulumu [Claude Code](https://claude.com/claude-code) senin için adım adım yapabilir: TV'ye bağlanma, APK kurulumu, ana ekran değişimi, izinler ve istersen cihaz sadeleştirme. Her komuttan önce ne yapacağını, nasıl geri alınacağını anlatır ve onayını bekler; root kullanmaz, hiçbir şeyi silmez.
@@ -30,6 +32,16 @@ Claude'a verdiğin talimatların tamamı [CLAUDE-GUIDE.md](CLAUDE-GUIDE.md) dosy
 - **Yaklaşan maçlar:** Seçtiğin liglerden önümüzdeki 1 saat / 1 gün / 3 gün içindeki maçlar.
 - **Kumanda tuşu yönlendirme:** Netflix ve Prime Video tuşlarını istediğin uygulamaya bağla (varsayılan: değiştirme).
 - **Arka plan temizliği:** Ana ekrana dönünce son kullanılan uygulamalar bellekten atılır. Müzik çalan uygulamalara dokunulmaz.
+
+## Ekran görüntüleri
+
+| Ana ekran, aşağı ok ile açılan kısayollar | Tüm Uygulamalar |
+|---|---|
+| ![Kısayol çipleri açık ana ekran](docs/screenshots/home-chips.png) | ![Tüm Uygulamalar ekranı](docs/screenshots/all-apps.png) |
+
+| Arayüz Ayarları |
+|---|
+| ![Arayüz Ayarları ekranı](docs/screenshots/settings.png) |
 
 ## Uyumluluk
 
