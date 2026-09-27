@@ -43,6 +43,8 @@ Claude'a verdiğin talimatların tamamı [CLAUDE-GUIDE.md](CLAUDE-GUIDE.md) dosy
 |---|
 | ![Arayüz Ayarları ekranı](docs/screenshots/settings.png) |
 
+*Görsellerdeki takvim etkinlikleri ve maçlar örnek verilerdir.*
+
 ## Uyumluluk
 
 Xiaomi Mi TV Stick 1080p (MiTV-AESP0), Android 10 üzerinde test edildi. Android 10+ çalıştıran başka Android TV cihazlarında da açılması beklenir. Ama kumanda tuşu kodları (Netflix `193`, Prime Video `194`, Tüm Uygulamalar `284`) Xiaomi kumandasına göre; başka kumandalarda bu tuşlar sadece yönlendirilmez, başka bir şey bozulmaz.

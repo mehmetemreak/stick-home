@@ -47,6 +47,7 @@ public class HomeActivity extends Activity {
 
     private int moveModeIndex = -1;
     private int lastFocusedIndex = 0;
+    private boolean demoMode = false;
     private int upcomingGeneration = 0;
     private List<DockStore.Entry> preMovOrder = null;
 
@@ -82,6 +83,7 @@ public class HomeActivity extends Activity {
         weatherTomorrow = findViewById(R.id.weather_tomorrow);
         revealHint = findViewById(R.id.reveal_hint);
 
+        demoMode = DemoData.isRequested(this, getIntent());
         entries.addAll(dockStore.seedIfEmpty(this));
         renderShelf(-1);
         renderChips();
@@ -98,6 +100,13 @@ public class HomeActivity extends Activity {
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        demoMode = DemoData.isRequested(this, intent);
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQ_CALENDAR) {
@@ -110,7 +119,7 @@ public class HomeActivity extends Activity {
         upcomingGeneration++;
         upcomingPanel.removeAllViews();
 
-        if (!CalendarWidget.hasPermission(this)) {
+        if (!demoMode && !CalendarWidget.hasPermission(this)) {
             TextView header = new TextView(this);
             header.setText("Takvim izni verilmedi");
             header.setTextColor(0x99FFFFFF);
@@ -126,7 +135,9 @@ public class HomeActivity extends Activity {
             case SettingsStore.CALENDAR_WINDOW_1M: windowDays = 30; windowLabel = "1 ay"; break;
             default: windowDays = 7; windowLabel = "1 hafta"; break;
         }
-        List<CalendarWidget.UpcomingEvent> events = CalendarWidget.loadUpcoming(this, 4, windowDays);
+        List<CalendarWidget.UpcomingEvent> events = demoMode
+                ? DemoData.events()
+                : CalendarWidget.loadUpcoming(this, 4, windowDays);
 
         TextView header = new TextView(this);
         header.setText("Yaklaşan");
@@ -156,32 +167,17 @@ public class HomeActivity extends Activity {
     }
 
     private void renderFootball() {
+        if (demoMode) {
+            showMatches(DemoData.matches());
+            return;
+        }
         int generation = upcomingGeneration;
         FootballWidget.fetch(this, new FootballWidget.Callback() {
             @Override
             public void onResult(List<FootballWidget.Match> matches) {
                 // A newer renderUpcoming() already rebuilt the panel; its own fetch will fill it.
-                if (generation != upcomingGeneration || matches.isEmpty()) return;
-
-                TextView header = new TextView(HomeActivity.this);
-                header.setText("Yaklaşan Maçlar");
-                header.setTextColor(0x99FFFFFF);
-                header.setTextSize(13);
-                header.setPadding(0, dp(10), 0, dp(6));
-                upcomingPanel.addView(header);
-
-                boolean multiDay = settingsStore.getMatchWindow() != SettingsStore.MATCH_WINDOW_1H;
-                SimpleDateFormat timeFmt = new SimpleDateFormat(
-                        multiDay ? "d MMM HH:mm" : "HH:mm", new Locale("tr", "TR"));
-                for (FootballWidget.Match m : matches) {
-                    TextView row = new TextView(HomeActivity.this);
-                    row.setText(timeFmt.format(new Date(m.startMillis)) + "  ·  " + m.title);
-                    row.setTextColor(0xDDECECEC);
-                    row.setTextSize(14);
-                    row.setPadding(0, 0, 0, dp(4));
-                    row.setMaxLines(1);
-                    upcomingPanel.addView(row);
-                }
+                if (generation != upcomingGeneration) return;
+                showMatches(matches);
             }
 
             @Override
@@ -189,6 +185,30 @@ public class HomeActivity extends Activity {
                 // Silently skip - no network or API unavailable.
             }
         });
+    }
+
+    private void showMatches(List<FootballWidget.Match> matches) {
+        if (matches.isEmpty()) return;
+
+        TextView header = new TextView(this);
+        header.setText("Yaklaşan Maçlar");
+        header.setTextColor(0x99FFFFFF);
+        header.setTextSize(13);
+        header.setPadding(0, dp(10), 0, dp(6));
+        upcomingPanel.addView(header);
+
+        boolean multiDay = settingsStore.getMatchWindow() != SettingsStore.MATCH_WINDOW_1H;
+        SimpleDateFormat timeFmt = new SimpleDateFormat(
+                multiDay ? "d MMM HH:mm" : "HH:mm", new Locale("tr", "TR"));
+        for (FootballWidget.Match m : matches) {
+            TextView row = new TextView(this);
+            row.setText(timeFmt.format(new Date(m.startMillis)) + "  ·  " + m.title);
+            row.setTextColor(0xDDECECEC);
+            row.setTextSize(14);
+            row.setPadding(0, 0, 0, dp(4));
+            row.setMaxLines(1);
+            upcomingPanel.addView(row);
+        }
     }
 
     private void renderChips() {
