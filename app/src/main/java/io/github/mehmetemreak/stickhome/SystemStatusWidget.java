@@ -23,7 +23,7 @@ public class SystemStatusWidget {
             thermal = "  ·  " + thermalLabel(status);
         }
 
-        return "RAM " + availMb + "/" + totalMb + " MB" + thermal;
+        return "Boş RAM " + availMb + " / " + totalMb + " MB" + thermal;
     }
 
     private static String thermalLabel(int status) {
