@@ -14,9 +14,21 @@ android {
         versionName "1.0.0"
     }
 
+    // Release signing reads the keystore location and password from the environment
+    // (see release.ps1), so no secret ever lives in the repo.
+    signingConfigs {
+        release {
+            storeFile file(System.getenv("STICK_KEYSTORE") ?: "${rootDir}/../stick-home-release.jks")
+            storePassword System.getenv("STICK_KEYSTORE_PASSWORD")
+            keyAlias "stickhome"
+            keyPassword System.getenv("STICK_KEYSTORE_PASSWORD")
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
         }
     }
 
