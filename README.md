@@ -39,7 +39,7 @@ Claude'a verdiğin talimatların tamamı [CLAUDE-GUIDE.md](CLAUDE-GUIDE.md) dosy
 |---|---|
 | ![Kısayol çipleri açık ana ekran](docs/screenshots/home-chips.png) | ![Tüm Uygulamalar ekranı](docs/screenshots/all-apps.png) |
 
-| Arayüz Ayarları |
+| Arayüz Ayarları (tam sayfa, "Karanlık" temayla) |
 |---|
 | ![Arayüz Ayarları ekranı](docs/screenshots/settings.png) |
 

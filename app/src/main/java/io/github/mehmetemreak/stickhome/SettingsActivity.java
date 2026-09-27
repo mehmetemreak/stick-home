@@ -1,6 +1,7 @@
 package io.github.mehmetemreak.stickhome;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -199,8 +200,7 @@ public class SettingsActivity extends Activity {
     }
 
     private void refreshAccessibilityWarning() {
-        String enabled = Settings.Secure.getString(getContentResolver(), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
-        boolean isOn = enabled != null && enabled.contains(getPackageName() + "/" + getPackageName() + ".KeyRemapService");
+        boolean isOn = isKeyRemapServiceEnabled();
         if (isOn) {
             accessibilityWarning.setText("✓ Erişilebilirlik servisi açık, kumanda tuşları çalışıyor olmalı.");
             accessibilityWarning.setTextColor(Color.parseColor("#8FEBFF"));
@@ -208,6 +208,17 @@ public class SettingsActivity extends Activity {
             accessibilityWarning.setText("⚠ Erişilebilirlik servisi KAPALI — kumanda tuşları çalışmaz. Açmak için buraya bas.");
             accessibilityWarning.setTextColor(Color.parseColor("#FFB84D"));
         }
+    }
+
+    /** The setting may store the component in short ("pkg/.Cls") or full ("pkg/pkg.Cls") form. */
+    private boolean isKeyRemapServiceEnabled() {
+        String enabled = Settings.Secure.getString(getContentResolver(), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
+        if (enabled == null) return false;
+        ComponentName ours = new ComponentName(this, KeyRemapService.class);
+        for (String entry : enabled.split(":")) {
+            if (ours.equals(ComponentName.unflattenFromString(entry))) return true;
+        }
+        return false;
     }
 
     private TextView sectionHeader(String text) {
