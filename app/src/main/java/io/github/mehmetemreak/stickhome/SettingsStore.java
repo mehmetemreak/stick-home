@@ -26,6 +26,11 @@ public class SettingsStore {
     public static final int MATCH_WINDOW_1D = 1;
     public static final int MATCH_WINDOW_3D = 2;
 
+    private static final String KEY_CALENDAR_WINDOW = "settings/calendar_window";
+    public static final int CALENDAR_WINDOW_3D = 0;
+    public static final int CALENDAR_WINDOW_1W = 1;
+    public static final int CALENDAR_WINDOW_1M = 2;
+
     private static final String KEY_WEATHER_NAME = "settings/weather_name";
     private static final String KEY_WEATHER_LAT = "settings/weather_lat";
     private static final String KEY_WEATHER_LON = "settings/weather_lon";
@@ -121,5 +126,13 @@ public class SettingsStore {
 
     public void setMatchWindow(int window) {
         prefs.edit().putInt(KEY_MATCH_WINDOW, window).apply();
+    }
+
+    public int getCalendarWindow() {
+        return prefs.getInt(KEY_CALENDAR_WINDOW, CALENDAR_WINDOW_1W);
+    }
+
+    public void setCalendarWindow(int window) {
+        prefs.edit().putInt(KEY_CALENDAR_WINDOW, window).apply();
     }
 }

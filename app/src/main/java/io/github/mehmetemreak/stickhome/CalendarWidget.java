@@ -44,16 +44,16 @@ public class CalendarWidget {
                 == PackageManager.PERMISSION_GRANTED;
     }
 
-    public static List<UpcomingEvent> loadUpcoming(Context context, int maxCount) {
+    public static List<UpcomingEvent> loadUpcoming(Context context, int maxCount, int windowDays) {
         List<UpcomingEvent> result = new ArrayList<>();
         if (!hasPermission(context)) return result;
 
         long now = System.currentTimeMillis();
-        long monthAhead = now + 30L * 24 * 60 * 60 * 1000;
+        long end = now + windowDays * 24L * 60 * 60 * 1000;
 
         android.net.Uri.Builder builder = CalendarContract.Instances.CONTENT_URI.buildUpon();
         ContentUris.appendId(builder, now);
-        ContentUris.appendId(builder, monthAhead);
+        ContentUris.appendId(builder, end);
 
         String[] projection = {
                 CalendarContract.Instances.TITLE,

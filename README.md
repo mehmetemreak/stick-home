@@ -12,7 +12,7 @@ Xiaomi Mi TV Stick için hafif, root gerektirmeyen, özel bir Android TV ana ekr
 - **Tüm Uygulamalar ekranı:** Seç aç, basılı tut ana ekrana ekle/çıkar.
 - **Temalar:** İki fotoğraflı tema, koyu/açık gradyanlar ve düz siyah "Karanlık".
 - **Saat, selamlama, hava durumu:** Şehri ayarlardan bir kere seçersin, konum izni istemez.
-- **Takvim:** Cihazdaki Google hesabının yaklaşan etkinlikleri (yerel okuma, ek giriş yok). Google Takvim senkronizasyonunun açık olması gerekir.
+- **Takvim:** Cihazdaki Google hesabının önümüzdeki 3 gün / 1 hafta / 1 ay içindeki etkinlikleri (yerel okuma, ek giriş yok). Google Takvim senkronizasyonunun açık olması gerekir.
 - **Yaklaşan maçlar:** Seçtiğin liglerden önümüzdeki 1 saat / 1 gün / 3 gün içindeki maçlar.
 - **Kumanda tuşu yönlendirme:** Netflix ve Prime Video tuşlarını istediğin uygulamaya bağla (varsayılan: değiştirme).
 - **Arka plan temizliği:** Ana ekrana dönünce son kullanılan uygulamalar bellekten atılır. Müzik çalan uygulamalara dokunulmaz.

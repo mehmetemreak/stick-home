@@ -119,7 +119,14 @@ public class HomeActivity extends Activity {
             return;
         }
 
-        List<CalendarWidget.UpcomingEvent> events = CalendarWidget.loadUpcoming(this, 4);
+        int windowDays;
+        String windowLabel;
+        switch (settingsStore.getCalendarWindow()) {
+            case SettingsStore.CALENDAR_WINDOW_3D: windowDays = 3; windowLabel = "3 gün"; break;
+            case SettingsStore.CALENDAR_WINDOW_1M: windowDays = 30; windowLabel = "1 ay"; break;
+            default: windowDays = 7; windowLabel = "1 hafta"; break;
+        }
+        List<CalendarWidget.UpcomingEvent> events = CalendarWidget.loadUpcoming(this, 4, windowDays);
 
         TextView header = new TextView(this);
         header.setText("Yaklaşan");
@@ -130,7 +137,7 @@ public class HomeActivity extends Activity {
 
         if (events.isEmpty()) {
             TextView empty = new TextView(this);
-            empty.setText("30 gün içinde etkinlik yok");
+            empty.setText(windowLabel + " içinde etkinlik yok");
             empty.setTextColor(0x88ECECEC);
             empty.setTextSize(13);
             upcomingPanel.addView(empty);

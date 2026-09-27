@@ -30,6 +30,7 @@ public class SettingsActivity extends Activity {
     private GridLayout leagueRow;
     private LinearLayout matchWindowRow;
     private LinearLayout weatherRow;
+    private LinearLayout calendarWindowRow;
     private LinearLayout appearanceRow;
     private LinearLayout otherSportsRow;
     private TextView netflixTargetLabel;
@@ -77,6 +78,14 @@ public class SettingsActivity extends Activity {
         appearanceRow.setPadding(0, 0, 0, dp(24));
         content.addView(appearanceRow);
         renderAppearance();
+
+        content.addView(sectionHeader("Takvim"));
+        calendarWindowRow = new LinearLayout(this);
+        calendarWindowRow.setOrientation(LinearLayout.HORIZONTAL);
+        calendarWindowRow.setClipChildren(false);
+        calendarWindowRow.setPadding(0, 0, 0, dp(24));
+        content.addView(calendarWindowRow);
+        renderCalendarWindow();
 
         content.addView(sectionHeader("Hava durumu"));
         weatherRow = new LinearLayout(this);
@@ -391,6 +400,17 @@ public class SettingsActivity extends Activity {
         }
         filtered.sort((a, b) -> a.loadLabel(pm).toString().compareToIgnoreCase(b.loadLabel(pm).toString()));
         return filtered;
+    }
+
+    private void renderCalendarWindow() {
+        calendarWindowRow.removeAllViews();
+        String[] labels = {"Takvim Aralığı: 3 gün", "Takvim Aralığı: 1 hafta", "Takvim Aralığı: 1 ay"};
+        TextView chip = simpleChip(labels[store.getCalendarWindow()]);
+        chip.setOnClickListener(v -> {
+            store.setCalendarWindow((store.getCalendarWindow() + 1) % 3);
+            renderCalendarWindow();
+        });
+        calendarWindowRow.addView(chip);
     }
 
     private void renderWeather() {
