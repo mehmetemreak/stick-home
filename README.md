@@ -6,6 +6,20 @@ Xiaomi Mi TV Stick için hafif, root gerektirmeyen, özel bir Android TV ana ekr
 
 > *A lightweight, root-free custom Android TV launcher for the Xiaomi Mi TV Stick. The UI is Turkish-only for now.*
 
+## Claude Code ile kurulum (önerilen)
+
+Komutlarla uğraşmak istemiyorsan kurulumu [Claude Code](https://claude.com/claude-code) senin için adım adım yapabilir: TV'ye bağlanma, APK kurulumu, ana ekran değişimi, izinler ve istersen cihaz sadeleştirme. Her komuttan önce ne yapacağını, nasıl geri alınacağını anlatır ve onayını bekler; root kullanmaz, hiçbir şeyi silmez.
+
+1. Bilgisayarına Claude Code'u kur ve boş bir klasörde başlat.
+2. TV'de Geliştirici seçeneklerini aç (Claude da nasıl yapılacağını anlatır).
+3. Claude'a şunu yaz:
+
+   ```
+   https://raw.githubusercontent.com/mehmetemreak/stick-home/main/CLAUDE-GUIDE.md dosyasını oku ve Android TV'me Stick Home kurmama adım adım yardım et.
+   ```
+
+Claude'a verdiğin talimatların tamamı [CLAUDE-GUIDE.md](CLAUDE-GUIDE.md) dosyasında; kurulumdan önce okuyabilirsin.
+
 ## Özellikler
 
 - **Sade raf:** Sık kullandığın uygulamalar tek sırada. Basılı tut → taşı, kaldır, uygulama bilgisi.
@@ -21,11 +35,11 @@ Xiaomi Mi TV Stick için hafif, root gerektirmeyen, özel bir Android TV ana ekr
 
 Xiaomi Mi TV Stick 1080p (MiTV-AESP0), Android 10 üzerinde test edildi. Android 10+ çalıştıran başka Android TV cihazlarında da açılması beklenir. Ama kumanda tuşu kodları (Netflix `193`, Prime Video `194`, Tüm Uygulamalar `284`) Xiaomi kumandasına göre; başka kumandalarda bu tuşlar sadece yönlendirilmez, başka bir şey bozulmaz.
 
-## Kurulum
+## Elle kurulum
 
 Bilgisayarında [ADB](https://developer.android.com/tools/releases/platform-tools) kurulu olmalı ve TV'de Geliştirici seçenekleri → USB/Ağ hata ayıklama açık olmalı.
 
-1. [Releases](../../releases) sayfasından `stick-home.apk` dosyasını indir ve yükle:
+1. En son sürümü [buradan indir](https://github.com/mehmetemreak/stick-home/releases/latest/download/stick-home.apk) (tüm sürümler: [Releases](../../releases)) ve yükle:
    ```
    adb connect <TV-IP-ADRESİ>
    adb install stick-home.apk
@@ -83,7 +97,7 @@ APK: `app/build/outputs/apk/debug/app-debug.apk`
 
 ## Teşekkür
 
-Bu proje, [bevcko16'nın Kutu Android TV Guide](https://github.com/bevcko16/kutu-android-tv-guide) rehberinden ilham alarak başladı. Rehberdeki Claude Code + ADB iş akışıyla önce cihazı optimize ettim, sonra bu launcher'ı Mi TV Stick için sıfırdan yazdım.
+Bu proje, [bevcko16'nın Kutu Android TV Guide](https://github.com/bevcko16/kutu-android-tv-guide) rehberinden ilham alarak başladı. Rehberdeki Claude Code + ADB iş akışıyla önce cihazı optimize ettim, sonra bu launcher'ı Mi TV Stick için sıfırdan yazdım. Kurulumu Claude'a bir rehber dosyasıyla yaptırma fikri de oradan geliyor.
 
 ## Lisans
 
