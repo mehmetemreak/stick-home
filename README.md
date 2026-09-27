@@ -12,7 +12,7 @@ Xiaomi Mi TV Stick için hafif, root gerektirmeyen, özel bir Android TV ana ekr
 - **Tüm Uygulamalar ekranı:** Seç aç, basılı tut ana ekrana ekle/çıkar.
 - **Temalar:** İki fotoğraflı tema, koyu/açık gradyanlar ve düz siyah "Karanlık".
 - **Saat, selamlama, hava durumu:** Şehri ayarlardan bir kere seçersin, konum izni istemez.
-- **Takvim:** Cihazdaki Google hesabının yaklaşan etkinlikleri (yerel okuma, ek giriş yok).
+- **Takvim:** Cihazdaki Google hesabının yaklaşan etkinlikleri (yerel okuma, ek giriş yok). Google Takvim senkronizasyonunun açık olması gerekir.
 - **Yaklaşan maçlar:** Seçtiğin liglerden önümüzdeki 1 saat / 1 gün / 3 gün içindeki maçlar.
 - **Kumanda tuşu yönlendirme:** Netflix ve Prime Video tuşlarını istediğin uygulamaya bağla (varsayılan: değiştirme).
 - **Arka plan temizliği:** Ana ekrana dönünce son kullanılan uygulamalar bellekten atılır. Müzik çalan uygulamalara dokunulmaz.
@@ -34,7 +34,7 @@ Bilgisayarında [ADB](https://developer.android.com/tools/releases/platform-tool
    ```
    adb shell cmd package set-home-activity io.github.mehmetemreak.stickhome/.HomeActivity
    ```
-   Kumandadaki Home tuşuna bas. Stick Home açılmıyorsa komutu bir kez daha çalıştır.
+   Kumandadaki Home tuşuna bas. Hâlâ eski ana ekran açılıyorsa [DEBLOAT.md → Stick Home'u ana ekran yapmak](DEBLOAT.md#stick-homeu-ana-ekran-yapmak) bölümüne bak.
 3. **(İsteğe bağlı) Kumanda tuşları için:** TV'de Ayarlar → Cihaz Tercihleri → Erişilebilirlik → Stick Home → Aç. Sonra Arayüz Ayarları'ndan tuşların neyi açacağını seç.
 4. **(İsteğe bağlı) Arka plan temizliği için:**
    ```
@@ -45,14 +45,21 @@ Ayarlara ana ekranda aşağı ok → **Arayüz Ayarları** ile ulaşılır.
 
 ### Geri alma
 
-Orijinal ana ekrana dönmek için (Mi TV Stick'te Google TV launcher'ı):
+Orijinal ana ekrana dönmek için (Mi TV Stick'te Google TV launcher'ı). İlk satır, ana ekranı daha önce kapattıysan onu geri açar; kapatmadıysan zararsızdır:
 
 ```
+adb shell pm enable --user 0 com.google.android.tvlauncher
 adb shell cmd package set-home-activity com.google.android.tvlauncher/.MainActivity
 adb uninstall io.github.mehmetemreak.stickhome
 ```
 
 Başka bir cihazda orijinal launcher'ın adını `adb shell cmd package resolve-activity -a android.intent.action.MAIN -c android.intent.category.HOME` ile Stick Home'u kurmadan önce öğrenebilirsin.
+
+## Stick Home neyi değiştirmez?
+
+APK sadece bir ana ekran uygulaması kurar. Cihazındaki başka hiçbir uygulamayı kapatmaz, silmez, ayarlarını değiştirmez; normal bir Android uygulamasının bunu yapma yetkisi de yok. Stick Home'u silersen geriye bir şey kalmaz.
+
+Cihazı sadeleştirmek (Xiaomi reklam/telemetri uygulamalarını kapatmak vb.) ayrı ve isteğe bağlı bir iş. Kendi cihazımda yaptıklarımı, geri alma komutlarıyla birlikte [DEBLOAT.md](DEBLOAT.md) dosyasında anlattım.
 
 ## Gizlilik
 
