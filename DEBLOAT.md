@@ -1,4 +1,6 @@
-# Mi TV Stick sadeleştirme (debloat) rehberi
+# Mi TV Stick kasma, yavaşlık ve reklam kapatma (debloat) rehberi
+
+Xiaomi Mi TV Stick 1 GB RAM ile geliyor ve kutudan çıktığı hâliyle Xiaomi'nin reklam, içerik ve telemetri uygulamaları arka planda çalışıyor; açılıştaki donma ve menü geçişlerindeki kasmanın büyük kısmı buradan geliyor. Bu rehber, kendi cihazımda root kullanmadan, hiçbir şeyi silmeden yaptığım sadeleştirmeyi anlatır. Her adımın geri alma komutu yanında. **Stick Home APK'sı bunların hiçbirini yapmaz**; aşağıdaki her adım isteğe bağlıdır ve ADB ile elle çalıştırılır.
 
 Bu rehber, Stick Home'u geliştirirken kendi Xiaomi Mi TV Stick'imde yaptığım sadeleştirmeyi anlatır. **Stick Home APK'sı bunların hiçbirini yapmaz** — aşağıdaki her adım isteğe bağlıdır ve senin ADB ile elle çalıştırman gerekir.
 
