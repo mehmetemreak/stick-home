@@ -1,4 +1,4 @@
-﻿# Stick Home â€” setup guide for Claude
+# Stick Home — setup guide for Claude
 
 You are helping a user install **Stick Home** (a lightweight, root-free Android TV launcher, https://github.com/mehmetemreak/stick-home) on their Android TV device over ADB, and optionally declutter the device. The user is usually **not a developer**.
 
@@ -18,14 +18,14 @@ You are helping a user install **Stick Home** (a lightweight, root-free Android 
 6. **Keep a local log** (e.g. `stick-home-setup-log.md` in the working folder) with every state-changing command, its undo, and the result. Make one `RESTORE-ALL` script from it at the end.
 7. **Never type passwords or tokens** for the user, and never publish or upload anything on their behalf. Device identifiers (serial numbers, Wi-Fi names, IPs) stay on their machine.
 
-## Step 1 â€” Connect over ADB
+## Step 1 — Connect over ADB
 
 1. Check that `adb` works on the computer. If not, help the user install Android SDK Platform-Tools from https://developer.android.com/tools/releases/platform-tools (official Google download only).
-2. On the TV: Settings â†’ Device Preferences â†’ About â†’ click **Build** 7 times to unlock Developer options. Then Developer options â†’ turn on **USB debugging** / **Network debugging**.
-3. Find the TV's IP (Settings â†’ Network) and run `adb connect <IP>:5555`. The TV shows an "Allow USB debugging?" prompt; the user must accept it with the remote.
+2. On the TV: Settings → Device Preferences → About → click **Build** 7 times to unlock Developer options. Then Developer options → turn on **USB debugging** / **Network debugging**.
+3. Find the TV's IP (Settings → Network) and run `adb connect <IP>:5555`. The TV shows an "Allow USB debugging?" prompt; the user must accept it with the remote.
 4. Confirm with `adb devices`. If several devices are listed, use `-s <serial>` on every command.
 
-## Step 2 â€” Identify the device (read-only)
+## Step 2 — Identify the device (read-only)
 
 ```
 adb shell getprop ro.product.model
@@ -48,7 +48,7 @@ adb shell pm list packages -d
 
 The last line of the first command is the **current home launcher**. Write it in the log; it is what the user returns to on rollback.
 
-## Step 3 â€” Install Stick Home
+## Step 3 — Install Stick Home
 
 1. Download the latest APK (always the newest release):
    `https://github.com/mehmetemreak/stick-home/releases/latest/download/stick-home.apk`
@@ -67,27 +67,27 @@ The last line of the first command is the **current home launcher**. Write it in
    Undo: `adb shell pm enable --user 0 <original launcher package>` then set it as home again.
 6. On first launch Stick Home asks for the user's name (they can skip) and for calendar access.
 
-## Step 4 â€” Optional features
+## Step 4 — Optional features
 
 Ask which of these the user wants; skip the rest.
 
-- **Remote button remapping** (Netflix / Prime Video buttons open another app): the user must turn it on themselves on the TV: Settings â†’ Device Preferences â†’ Accessibility â†’ Stick Home â†’ On. Explain that it only watches those buttons; it doesn't read the screen. Then they choose targets in Stick Home: press **Down** on the home screen â†’ **ArayÃ¼z AyarlarÄ±** â†’ Kumanda tuÅŸlarÄ±. After app updates Android sometimes turns this off; the settings screen shows a warning if so.
+- **Remote button remapping** (Netflix / Prime Video buttons open another app): the user must turn it on themselves on the TV: Settings → Device Preferences → Accessibility → Stick Home → On. Explain that it only watches those buttons; it doesn't read the screen. Then they choose targets in Stick Home: press **Down** on the home screen → **Arayüz Ayarları** → Kumanda tuşları. After app updates Android sometimes turns this off; the settings screen shows a warning if so.
 - **Background cleanup** (frees memory from recently used apps when returning home; apps playing music are never touched). Approval required:
   ```
   adb shell appops set io.github.mehmetemreak.stickhome GET_USAGE_STATS allow
   ```
   Undo: `adb shell appops set io.github.mehmetemreak.stickhome GET_USAGE_STATS default`
-- **Weather:** in ArayÃ¼z AyarlarÄ± â†’ Hava durumu, search for a city. No location permission is used.
+- **Weather:** in Arayüz Ayarları → Hava durumu, search for a city. No location permission is used.
 - **Calendar:** needs Google Calendar sync enabled. Check `adb shell pm list packages -d | findstr syncadapters.calendar` (or `grep` on macOS/Linux); if it's listed as disabled, offer to re-enable it.
 
-## Step 5 â€” Optional decluttering
+## Step 5 — Optional decluttering
 
 Only if the user asks for it. Follow the rules above and the reference list in
 https://raw.githubusercontent.com/mehmetemreak/stick-home/main/DEBLOAT.md
 
 - **Same device (MiTV-AESP0):** use that list as *candidates*, not a script. Group them (Xiaomi ads/telemetry, Google feedback, unused Google apps, unneeded Android parts), and for each group ask whether the user uses anything in it. Respect the "don't disable if you use it" notes (TalkBack, calendar sync, Play Games, Play Movies).
 - **Any other device:** do not copy the list. Inspect the device's own packages (`pm list packages -s`, `dumpsys package <pkg>`), and propose only clearly unused, non-system-shared candidates, explaining each one.
-- Work in small batches (â‰¤ 10 packages). After each batch: reboot (`adb reboot`, approval required), wait for `adb shell getprop sys.boot_completed` to return `1`, confirm the packages are still disabled, and ask the user to test the remote, sound, Wi-Fi, voice search and their streaming apps before continuing.
+- Work in small batches (≤ 10 packages). After each batch: reboot (`adb reboot`, approval required), wait for `adb shell getprop sys.boot_completed` to return `1`, confirm the packages are still disabled, and ask the user to test the remote, sound, Wi-Fi, voice search and their streaming apps before continuing.
 
 ## Rollback
 
@@ -97,5 +97,5 @@ https://raw.githubusercontent.com/mehmetemreak/stick-home/main/DEBLOAT.md
 
 ## Finish
 
-Give the user a short summary: what was installed and enabled, what was disabled (with where the undo script is), and how to open ArayÃ¼z AyarlarÄ± (press **Down** on the home screen).
+Give the user a short summary: what was installed and enabled, what was disabled (with where the undo script is), and how to open Arayüz Ayarları (press **Down** on the home screen).
 
