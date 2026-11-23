@@ -35,7 +35,8 @@ adb shell getprop ro.build.version.sdk
 adb shell cat /proc/meminfo
 ```
 
-- Stick Home needs **Android 10 (SDK 29) or newer**. If older, stop and tell the user it won't install.
+- Stick Home needs **Android 9 (SDK 28) or newer**. If older, stop and tell the user it won't install.
+- On **Android 9 (SDK 28)** support is new and not yet confirmed on a real device: tell the user it's experimental, and if anything doesn't work, ask them to report it at https://github.com/mehmetemreak/stick-home/issues with their model and Android version. If the release APK fails with `INSTALL_FAILED_OLDER_SDK`, it's an older release built for Android 10+; tell the user to wait for v1.0.3 or newer.
 - It was tested on **Xiaomi Mi TV Stick 1080p (model MiTV-AESP0), Android 10**. Other devices should work, but the remote-button remapping uses Xiaomi remote keycodes (193, 194, 284); on other remotes those buttons simply won't be remapped.
 
 Record a baseline for rollback:
